@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1558 344" role="img" aria-labelledby="title">
+<title id="title">Запись на защиту и сохранение результата</title>
+<g font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="central" fill="#252a34">
+<rect x="0.8" y="0.8" width="1556.4" height="97.4" fill="white" stroke="#5d687a"/>
+<rect x="0.8" y="0.8" width="94" height="97.4" fill="#f3f6fb" stroke="#5d687a"/>
+<text x="48" y="49.5" font-size="12" font-weight="bold">Преподаватель</text>
+<rect x="0.8" y="99.8" width="1556.4" height="97.4" fill="white" stroke="#5d687a"/>
+<rect x="0.8" y="99.8" width="94" height="97.4" fill="#f3f6fb" stroke="#5d687a"/>
+<text x="48" y="138.5" font-size="12" font-weight="bold">Сайт и</text>
+<text x="48" y="158.5" font-size="12" font-weight="bold">сервисы вуза</text>
+<rect x="0.8" y="198.8" width="1556.4" height="144.4" fill="white" stroke="#5d687a"/>
+<rect x="0.8" y="198.8" width="94" height="144.4" fill="#f3f6fb" stroke="#5d687a"/>
+<text x="48" y="271.0" font-size="12" font-weight="bold">Студент</text>
+<polyline points="139,50 153,50" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="153,50 144.0,46.0 144.0,54.0" />
+<polyline points="269,50 347,50 347,119" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="347,119 351.0,110.0 343.0,110.0" />
+<polyline points="408,149 475,149 475,223" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="475,223 479.0,214.0 471.0,214.0" />
+<polyline points="538,251 599,251 599,177" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="599,177 595.0,186.0 603.0,186.0" />
+<polyline points="661,149 688,149" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="688,149 679.0,145.0 679.0,153.0" />
+<polyline points="710,171 710,314 475,314 475,279" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="475,279 471.0,288.0 479.0,288.0" />
+<polyline points="732,149 788,149" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="788,149 779.0,145.0 779.0,153.0" />
+<polyline points="824,149 853.5,149" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="853.5,149 844.5,145.0 844.5,153.0" />
+<polyline points="970.5,149 1037,149 1037,223" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="1037,223 1041.0,214.0 1033.0,214.0" />
+<polyline points="1094.5,251 1157,251 1157,78" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="1157,78 1153.0,87.0 1161.0,87.0" />
+<polyline points="1216.5,50 1234,50" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="1234,50 1225.0,46.0 1225.0,54.0" />
+<polyline points="1350,50 1413,50 1413,121" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="1413,121 1417.0,112.0 1409.0,112.0" />
+<polyline points="1471.5,149 1506,149" fill="none" stroke="#252a34" stroke-width="1.6"/>
+<polygon points="1506,149 1497.0,145.0 1497.0,153.0" />
+<circle cx="124" cy="50" r="15.0" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<rect x="153.0" y="22.0" width="116" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="211" y="41.5" font-size="15">Открыть</text>
+<text x="211" y="58.5" font-size="15">запись</text>
+<rect x="286.0" y="119.0" width="122" height="60" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="347" y="132.0" font-size="15">Создать слоты</text>
+<text x="347" y="149.0" font-size="15">и уведомить</text>
+<text x="347" y="166.0" font-size="15">группы</text>
+<rect x="412.0" y="223.0" width="126" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="475" y="242.5" font-size="15">Выбрать слот</text>
+<text x="475" y="259.5" font-size="15">и указать работу</text>
+<rect x="537.0" y="121.0" width="124" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="599" y="140.5" font-size="15">Проверить</text>
+<text x="599" y="157.5" font-size="15">и занять слот</text>
+<polygon points="688.0,149 710,127.0 732.0,149 710,171.0" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<path d="M703 142l14 14m-14 0l14 -14" stroke="#252a34" stroke-width="2"/>
+<circle cx="806" cy="149" r="18.0" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<circle cx="806" cy="149" r="14" fill="white" stroke="#252a34"/><circle cx="806" cy="149" r="9" fill="white" stroke="#252a34"/>
+<path d="M806 143v6h5" fill="none" stroke="#252a34" stroke-width="1.5"/>
+<rect x="853.5" y="121.0" width="117" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="912" y="140.5" font-size="15">Отправить</text>
+<text x="912" y="157.5" font-size="15">напоминание</text>
+<rect x="979.5" y="223.0" width="115" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="1037" y="242.5" font-size="15">Прийти</text>
+<text x="1037" y="259.5" font-size="15">на защиту</text>
+<rect x="1097.5" y="22.0" width="119" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="1157" y="41.5" font-size="15">Принять</text>
+<text x="1157" y="58.5" font-size="15">защиту</text>
+<rect x="1234.0" y="22.0" width="116" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="1292" y="41.5" font-size="15">Выставить</text>
+<text x="1292" y="58.5" font-size="15">результат</text>
+<rect x="1354.5" y="121.0" width="117" height="56" rx="9" fill="white" stroke="#252a34" stroke-width="1.65"/>
+<text x="1413" y="140.5" font-size="15">Сохранить</text>
+<text x="1413" y="157.5" font-size="15">результат</text>
+<circle cx="1521" cy="149" r="15.0" fill="white" stroke="#252a34" stroke-width="3.2"/>
+<text x="710" y="113" font-size="17">Слот подтверждён?</text>
+<text x="753" y="140" font-size="15">Да</text>
+<text x="598" y="304" font-size="16">Нет · место занято</text>
+<text x="806" y="183" font-size="15">За час</text>
+</g>
+</svg>

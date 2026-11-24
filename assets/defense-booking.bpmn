@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_DefenseBooking" targetNamespace="urn:lab1-pris:defense-booking">
+  <bpmn:process id="DefenseBooking" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Defense">
+      <bpmn:lane id="Teacher" name="Преподаватель">
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Publish</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Assess</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Mark</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="System" name="Сайт и сервисы вуза">
+        <bpmn:flowNodeRef>Notify</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Check</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Booked</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Timer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Remind</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Save</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Student" name="Студент">
+        <bpmn:flowNodeRef>Select</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Attend</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start">
+      <bpmn:outgoing>Flow_Start_Publish</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Publish" name="Открыть запись">
+      <bpmn:incoming>Flow_Start_Publish</bpmn:incoming>
+      <bpmn:outgoing>Flow_Publish_Notify</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Notify" name="Создать слоты и уведомить группы">
+      <bpmn:incoming>Flow_Publish_Notify</bpmn:incoming>
+      <bpmn:outgoing>Flow_Notify_Select</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Select" name="Выбрать слот и указать работу">
+      <bpmn:incoming>Flow_Notify_Select</bpmn:incoming>
+      <bpmn:incoming>Flow_Booked_Select</bpmn:incoming>
+      <bpmn:outgoing>Flow_Select_Check</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Check" name="Проверить и занять слот">
+      <bpmn:incoming>Flow_Select_Check</bpmn:incoming>
+      <bpmn:outgoing>Flow_Check_Booked</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Booked" name="Слот подтверждён?" gatewayDirection="Diverging" default="Flow_Booked_Select">
+      <bpmn:incoming>Flow_Check_Booked</bpmn:incoming>
+      <bpmn:outgoing>Flow_Booked_Select</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Booked_Timer</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="Timer" name="За час до первого слота студента">
+      <bpmn:incoming>Flow_Booked_Timer</bpmn:incoming>
+      <bpmn:outgoing>Flow_Timer_Remind</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="ReminderTimer">
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">reminderAt</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Remind" name="Отправить напоминание">
+      <bpmn:incoming>Flow_Timer_Remind</bpmn:incoming>
+      <bpmn:outgoing>Flow_Remind_Attend</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:manualTask id="Attend" name="Прийти на защиту">
+      <bpmn:incoming>Flow_Remind_Attend</bpmn:incoming>
+      <bpmn:outgoing>Flow_Attend_Assess</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="Assess" name="Принять защиту">
+      <bpmn:incoming>Flow_Attend_Assess</bpmn:incoming>
+      <bpmn:outgoing>Flow_Assess_Mark</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Mark" name="Выставить результат">
+      <bpmn:incoming>Flow_Assess_Mark</bpmn:incoming>
+      <bpmn:outgoing>Flow_Mark_Save</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Save" name="Сохранить результат">
+      <bpmn:incoming>Flow_Mark_Save</bpmn:incoming>
+      <bpmn:outgoing>Flow_Save_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="End">
+      <bpmn:incoming>Flow_Save_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Publish" sourceRef="Start" targetRef="Publish" />
+    <bpmn:sequenceFlow id="Flow_Publish_Notify" sourceRef="Publish" targetRef="Notify" />
+    <bpmn:sequenceFlow id="Flow_Notify_Select" sourceRef="Notify" targetRef="Select" />
+    <bpmn:sequenceFlow id="Flow_Select_Check" sourceRef="Select" targetRef="Check" />
+    <bpmn:sequenceFlow id="Flow_Check_Booked" sourceRef="Check" targetRef="Booked" />
+    <bpmn:sequenceFlow id="Flow_Booked_Select" sourceRef="Booked" targetRef="Select" name="Нет · место занято" />
+    <bpmn:sequenceFlow id="Flow_Booked_Timer" sourceRef="Booked" targetRef="Timer" name="Да">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">slotConfirmed</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Timer_Remind" sourceRef="Timer" targetRef="Remind" />
+    <bpmn:sequenceFlow id="Flow_Remind_Attend" sourceRef="Remind" targetRef="Attend" />
+    <bpmn:sequenceFlow id="Flow_Attend_Assess" sourceRef="Attend" targetRef="Assess" />
+    <bpmn:sequenceFlow id="Flow_Assess_Mark" sourceRef="Assess" targetRef="Mark" />
+    <bpmn:sequenceFlow id="Flow_Mark_Save" sourceRef="Mark" targetRef="Save" />
+    <bpmn:sequenceFlow id="Flow_Save_End" sourceRef="Save" targetRef="End" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_Defense">
+    <bpmndi:BPMNPlane id="Plane_Defense" bpmnElement="DefenseBooking">
+      <bpmndi:BPMNShape id="Shape_Teacher" bpmnElement="Teacher" isHorizontal="true">
+        <dc:Bounds x="0" y="0" width="1558" height="99" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_System" bpmnElement="System" isHorizontal="true">
+        <dc:Bounds x="0" y="99" width="1558" height="99" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Student" bpmnElement="Student" isHorizontal="true">
+        <dc:Bounds x="0" y="198" width="1558" height="146" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="Start">
+        <dc:Bounds x="109.0" y="35.0" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Publish" bpmnElement="Publish">
+        <dc:Bounds x="153.0" y="22.0" width="116" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Notify" bpmnElement="Notify">
+        <dc:Bounds x="286.0" y="119.0" width="122" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Select" bpmnElement="Select">
+        <dc:Bounds x="412.0" y="223.0" width="126" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Check" bpmnElement="Check">
+        <dc:Bounds x="537.0" y="121.0" width="124" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Booked" bpmnElement="Booked" isMarkerVisible="true">
+        <dc:Bounds x="688.0" y="127.0" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="650" y="103" width="120" height="16" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Timer" bpmnElement="Timer">
+        <dc:Bounds x="788.0" y="131.0" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="746" y="178" width="120" height="16" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Remind" bpmnElement="Remind">
+        <dc:Bounds x="853.5" y="121.0" width="117" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Attend" bpmnElement="Attend">
+        <dc:Bounds x="979.5" y="223.0" width="115" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Assess" bpmnElement="Assess">
+        <dc:Bounds x="1097.5" y="22.0" width="119" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Mark" bpmnElement="Mark">
+        <dc:Bounds x="1234.0" y="22.0" width="116" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Save" bpmnElement="Save">
+        <dc:Bounds x="1354.5" y="121.0" width="117" height="56" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End" bpmnElement="End">
+        <dc:Bounds x="1506.0" y="134.0" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_Flow_Start_Publish" bpmnElement="Flow_Start_Publish">
+        <di:waypoint x="139" y="50" />
+        <di:waypoint x="153" y="50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Publish_Notify" bpmnElement="Flow_Publish_Notify">
+        <di:waypoint x="269" y="50" />
+        <di:waypoint x="347" y="50" />
+        <di:waypoint x="347" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Notify_Select" bpmnElement="Flow_Notify_Select">
+        <di:waypoint x="408" y="149" />
+        <di:waypoint x="475" y="149" />
+        <di:waypoint x="475" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Select_Check" bpmnElement="Flow_Select_Check">
+        <di:waypoint x="538" y="251" />
+        <di:waypoint x="599" y="251" />
+        <di:waypoint x="599" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Check_Booked" bpmnElement="Flow_Check_Booked">
+        <di:waypoint x="661" y="149" />
+        <di:waypoint x="688" y="149" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Booked_Select" bpmnElement="Flow_Booked_Select">
+        <di:waypoint x="710" y="171" />
+        <di:waypoint x="710" y="314" />
+        <di:waypoint x="475" y="314" />
+        <di:waypoint x="475" y="279" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="530" y="287" width="135" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Booked_Timer" bpmnElement="Flow_Booked_Timer">
+        <di:waypoint x="732" y="149" />
+        <di:waypoint x="788" y="149" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="738" y="126" width="35" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Timer_Remind" bpmnElement="Flow_Timer_Remind">
+        <di:waypoint x="824" y="149" />
+        <di:waypoint x="853.5" y="149" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Remind_Attend" bpmnElement="Flow_Remind_Attend">
+        <di:waypoint x="970.5" y="149" />
+        <di:waypoint x="1037" y="149" />
+        <di:waypoint x="1037" y="223" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Attend_Assess" bpmnElement="Flow_Attend_Assess">
+        <di:waypoint x="1094.5" y="251" />
+        <di:waypoint x="1157" y="251" />
+        <di:waypoint x="1157" y="78" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Assess_Mark" bpmnElement="Flow_Assess_Mark">
+        <di:waypoint x="1216.5" y="50" />
+        <di:waypoint x="1234" y="50" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Mark_Save" bpmnElement="Flow_Mark_Save">
+        <di:waypoint x="1350" y="50" />
+        <di:waypoint x="1413" y="50" />
+        <di:waypoint x="1413" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_Save_End" bpmnElement="Flow_Save_End">
+        <di:waypoint x="1471.5" y="149" />
+        <di:waypoint x="1506" y="149" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
